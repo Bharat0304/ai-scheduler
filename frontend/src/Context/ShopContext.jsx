@@ -7,7 +7,7 @@ export const ShopContext = createContext(null);
 const ShopContextProvider = (props) => {
 
     return (
-        <ShopContext.Provider >
+        <ShopContext.Provider value={{}}>
             {props.children}
         </ShopContext.Provider>
     )

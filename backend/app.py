@@ -37,7 +37,7 @@ load_dotenv()
 # --- MongoDB Setup ---
 # Connect to your MongoDB database
 client = MongoClient(
-    "mongodb+srv://superadmin:superadmin@cluster0.mfjcg.mongodb.net/"
+    "mongodb+srv://kbharat84265:SjgpL1UbSskmfFBO@cluster0.tfyruuc.mongodb.net/"
     "e-commerce?retryWrites=true&w=majority&appName=Cluster0"
 )
 db = client['scheduler']
@@ -652,7 +652,8 @@ Return only a valid JSON array like:
     raw_output = llm.invoke(prompt)
     content = raw_output.content if hasattr(raw_output, "content") else str(raw_output)
     extracted = extract_all_json(content)
-
+    if not isinstance(extracted, list):
+        extracted = []
     return jsonify({
         "calendar_json": extracted
         # "raw": content,

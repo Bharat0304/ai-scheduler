@@ -207,6 +207,18 @@ const EventCalendar = () => {
       });
       const data = await res.json();
 
+      if (data.error) {
+        setEvents([]);
+        setLoading(false);
+        alert(data.error);
+        return;
+      }
+      if (!Array.isArray(data.calendar_json)) {
+        setEvents([]);
+        setLoading(false);
+        console.error('calendar_json is not an array:', data);
+        return;
+      }
       const formattedEvents = data.calendar_json.map(event => ({
         id: event.id,
         start: new Date(event.start),

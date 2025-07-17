@@ -48,7 +48,18 @@ export const HomePage = () => {
             "Authorization": `Bearer ${token}`,
           },
         })
-          .then(res => res.json())
+          .then(res => {
+            if (!res.ok) {
+              if (res.status === 404) {
+                setGeneratedLink("");
+                setGeneratedTime("");
+                setAvailabilityCount(0);
+                return Promise.reject("No schedules found");
+              }
+              return Promise.reject(`HTTP error! status: ${res.status}`);
+            }
+            return res.json();
+          })
           .then(data => {
             if (data.schedule_id) {
               const link = `${window.location.origin}/availability?sid=${data.schedule_id}`;
