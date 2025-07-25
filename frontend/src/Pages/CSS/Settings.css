@@ -1,0 +1,154 @@
+:root {
+  --radius: 20px;
+  --gap: 20px;
+  --font-body: 16px;
+}
+
+/* 1️⃣ 基础布局 */
+.settingsbasic {
+  padding: 50px 200px;
+}
+
+.navbar-settings {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #ddd;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.quicklink {
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+  padding-bottom: 4px;
+  transition: border-bottom 0.3s;
+}
+
+.quicklink.active {
+  border-bottom: 3px solid blue;
+}
+
+.save-btn {
+  padding: 8px 20px;
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.save-btn:hover {
+  background-color: darkblue;
+}
+
+/* 2️⃣ 表单容器 */
+.inputform {
+  margin-top: 30px;
+  padding: 24px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius);
+  background: white;
+}
+
+.inputform-first {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.inputform-first-left,
+.inputform-first-right {
+  flex: 1;
+  min-width: 280px;
+  text-align: left;
+}
+
+.inputform-first h3 {
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.inputform-first input {
+  width: 95%;
+  height: 48px;
+  border-radius: 8px;
+  margin-top: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  outline: none;
+  padding: 0 18px;
+  transition: all 0.2s ease;
+}
+
+.inputform-first input:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+}
+
+.inputform-first input::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+/* 3️⃣ 平板设备样式 */
+@media (max-width: 1199px) {
+  .settingsbasic {
+    padding: 32px 40px;
+  }
+
+  .inputform {
+    padding: 20px;
+  }
+
+  .save-btn {
+    width: 100%;
+    padding: 12px 0;
+  }
+}
+
+/* 4️⃣ 手机样式 */
+@media (max-width: 767px) {
+  .settingsbasic {
+    padding: 24px 16px;
+  }
+
+  .navbar-settings {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .inputform-first {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .save-btn {
+    font-size: 14px;
+    width: 100%;
+    padding: 12px 0;
+  }
+
+  .inputform-first input {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+}

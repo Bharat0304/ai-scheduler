@@ -1,0 +1,308 @@
+.onboarding-container {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* background: linear-gradient(to bottom, #f7f8fc, #e8efff); */
+    padding: 40px;
+    box-sizing: border-box;
+  }
+  
+  .form-text-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .lottie-row {
+    display: flex;
+    align-items: flex-start; /* 让头像和文字顶部对齐 */
+    gap: 12px;           /* 图和文字之间的间距 */
+  }
+  
+  .lottie-avatar {
+    width: 48px;
+    height: 48px;
+  }
+
+  .onboarding-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 32px;
+  }
+
+  .onboarding-svg-icon{
+    margin-bottom: 48px;
+  }
+  
+  .glass-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 912px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0px 8px 30px rgba(99, 140, 243, 0.2);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    font-size: 16px;
+    font-weight: 500;
+    color: #111;
+  }
+
+  /* 追加在你的 CSS 中 */
+select.glass-box {
+    width: 952px;
+    background: rgba(255, 255, 255, 0.6);
+    border: none;
+    padding: 12px 20px;
+    padding-right: 40px;         
+    height: 48px;               
+    line-height: 24px;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 12px 8px;
+     /* 去除浏览器默认箭头样式 */
+    /* appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none; */
+  }
+
+  .input-field::placeholder {
+    color: #aaa;
+  }
+
+  .next-button {
+    margin-top: 20px;
+    padding: 12px 24px;
+    border: none;
+    background-color: #446fff;
+    color: white;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .fade-in {
+    animation: fadeIn 0.4s ease-in-out both;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .worker-table {
+    width: 100%;
+    max-width: 800px;
+    margin-top: 32px;
+    background: white;
+    border-radius: 12px;
+    padding: 24px 72px;
+    box-shadow: 0px 8px 30px rgba(99, 140, 243, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  
+  .table-header, .table-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr 1fr 1fr;
+    gap: 14px;
+    align-items: center;
+  }
+  
+  .table-header {
+    font-weight: 600;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+  }
+  
+  .table-row input[type="time"],
+  .table-row input[type="number"] {
+    height: 48px;
+    width: 150px;
+    text-align: center;
+    /* padding: 8px; */
+    padding-left: 24px;
+    padding-right: 24px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    margin: 24px 0;
+    background-color: #F9F9F9;
+    color: #0C0C0C;
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  
+  .day-name {
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+  
+
+  .button-row {
+    display: flex;
+    justify-content: space-between; /* 两边顶着 */
+    align-items: center;             /* 上下居中 */
+    width: 100%;
+    max-width: 912px;                /* 跟你的glass-box宽度对齐 */
+    margin: 32px auto;             /* 顶部有间距，左右居中 */
+    /* padding: 0 0px; */
+    box-sizing: border-box;
+  }
+  
+  .back-button,
+  .next-button {
+    all: unset; /* 去除所有默认按钮样式 */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  
+    height: 36px;
+    padding: 0 30px;
+    border-radius: 12px;
+    background: linear-gradient(270deg, #0ACFFE, #495AFF, #0ACFFE);
+    background-size: 600% 600%;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    transition: all 0.4s ease;
+
+  }
+
+  .next-button:hover {
+    animation: gradientMove 3s ease infinite;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  }
+
+  .first-step{
+    justify-content: flex-end;
+  }
+  
+
+  
+  .back-button {
+    background: #f0f0f0;
+    color: #333;
+  }
+  
+  
+  .view-form-box {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-left: 60px;
+  }
+  
+  .view-form-button {
+    background: none;
+    border: none;
+    font-weight: 600;
+    color: #446fff;
+    cursor: pointer;
+  }
+  .generate-hint {
+    font-size: 14px;
+    color: #888; /* 灰色文字 */
+    pointer-events: none; /* 禁止鼠标事件 */
+    user-select: none;     /* 禁止选中文本 */
+    
+  }
+  
+  .form-link-box {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    max-width: 700px;
+    margin-top: 16px;
+    margin-left: 60px;
+  }
+  
+  .generate-button-wrapper {
+    margin-left: 0px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+.generated-link-box{
+    margin-left: 60px;
+  }
+
+  .generated-link-box {
+    display: flex;
+
+    flex-direction: column;
+    gap: 8px;
+    padding: 20px;
+    position: relative;
+  }
+  
+  .link-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    word-break: break-all;
+    margin-bottom: 0px;
+  }
+  
+  .copy-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .copy-success {
+    color: green;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+
+  .congrats-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* min-height: 80vh; */
+    text-align: center;
+    padding: 40px;
+  }
+  
+  .congrats-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #111;
+    margin-top: 24px;
+    margin-bottom: 16px;
+  }
+  
+  .congrats-text {
+    font-size: 16px;
+    max-width: 600px;
+    color: #444;
+    margin-bottom: 32px;
+  }
+  
+  .fade-in {
+    animation: fadeIn 1s ease-in-out forwards;
+  }
+
+  
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  
