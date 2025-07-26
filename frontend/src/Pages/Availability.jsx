@@ -49,6 +49,9 @@ export const Availability = () => {
   const [submitMessage, setSubmitMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [scheduleData, setScheduleData] = useState(null);
+  const [error, setError] = useState(null);
+  const [selectedTimeSlots, setSelectedTimeSlots] = useState([]);
 
   useEffect(() => {
     const fetchScheduleData = async () => {
@@ -90,14 +93,26 @@ export const Availability = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch(getApiUrl(`api/schedule/${scheduleId}`), {
+      setLoading(true);
+      setSubmitMessage(null);
+
+      const filteredAvailability = Object.fromEntries(
+        Object.entries(availability).filter(([day]) => !unavailableDays[day])
+      );
+
+      const payload = {
+        name,
+        email,
+        availability: filteredAvailability,
+        preference,
+      };
+
+      const response = await fetch(getApiUrl(`api/availability/${scheduleId}`), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          availability: selectedTimeSlots,
-        }),
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
@@ -105,12 +120,16 @@ export const Availability = () => {
       }
 
       const data = await response.json();
-      if (data.success) {
+      if (data.message) {
+        setSubmitMessage(data.message);
         setSubmitted(true);
       }
     } catch (error) {
       console.error('Error submitting availability:', error);
       setError('Failed to submit availability');
+      setSubmitMessage("Failed to submit. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
