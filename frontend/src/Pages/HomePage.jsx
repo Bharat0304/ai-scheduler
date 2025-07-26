@@ -8,6 +8,7 @@ import { QRCodeSVG } from 'qrcode.react';
 import dl_icon from "../Component/Assets/download.png";
 import alarm_icon from "../Component/Assets/alarm_icon.png";
 import './CSS/HomePage.responsive.css';
+import { getApiUrl } from '../config';
 
 export const HomePage = () => {
     const [generatedLink, setGeneratedLink] = useState('');
@@ -43,7 +44,7 @@ export const HomePage = () => {
         const token = localStorage.getItem('auth-token');
         if (!token) return;
       
-        fetch("http://localhost:5001/api/latest-schedule", {
+        fetch(getApiUrl('/api/latest-schedule'), {
           headers: {
             "Authorization": `Bearer ${token}`,
           },
@@ -78,7 +79,7 @@ export const HomePage = () => {
 
     const fetchAvailabilityCount = async (scheduleId) => {
         try {
-            const res = await fetch(`http://localhost:5001/api/availability-count/${scheduleId}`);
+            const res = await fetch(getApiUrl(`/api/availability-count/${scheduleId}`));
             const data = await res.json();
             if (data.count !== undefined) {
                 setAvailabilityCount(data.count);
@@ -90,7 +91,7 @@ export const HomePage = () => {
 
     const fetchScheduleTime = async (scheduleId) => {
         try {
-            const res = await fetch(`http://localhost:5001/api/schedule/${scheduleId}`);
+            const res = await fetch(getApiUrl(`/api/schedule/${scheduleId}`));
             const data = await res.json();
 
             let ms;

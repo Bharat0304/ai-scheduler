@@ -8,6 +8,7 @@ import {useNavigate} from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import ai_icon_yellow from "../Assets/yellowai.png";
 import './AIChat.responsive.css';
+import { getApiUrl } from '../config';
 
 export const AIChat = () => {
     const [messages, setMessages] = useState([
@@ -40,7 +41,7 @@ export const AIChat = () => {
 
 
         try {
-            const res = await fetch('http://localhost:5001/api/schedule-agent', {
+            const res = await fetch(getApiUrl('/api/schedule-agent'), {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
