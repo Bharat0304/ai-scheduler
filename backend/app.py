@@ -25,7 +25,9 @@ CORS(app, resources={
     r"/api/*": {
         "origins": [
             "https://ai-scheduler-eta.vercel.app",
-            "http://localhost:3000"
+            "http://localhost:3000",
+            "https://ai-scheduler-1ji937cvg-bharat-s-projects-3e1e346b.vercel.app"
+
         ],
         "methods": ["GET", "POST", "OPTIONS"],
         "allow_headers": ["Content-Type", "Authorization"]
