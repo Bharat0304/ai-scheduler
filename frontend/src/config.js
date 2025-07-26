@@ -1,5 +1,5 @@
 // API URL Configuration
-const API_URL = process.env.REACT_APP_API_URL || 'https://ai-scheduler-backend-two.vercel.app';
+const API_URL = 'https://ai-scheduler-pul8.onrender.com';
 
 export const getApiUrl = (endpoint) => {
     return `${API_URL}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
