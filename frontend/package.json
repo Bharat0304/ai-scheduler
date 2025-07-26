@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@popperjs/core": "^2.11.8",
     "@react-oauth/google": "^0.12.1",
     "antd": "^5.24.7",
     "cra-template": "1.2.0",
@@ -13,8 +14,10 @@
     "react-big-calendar": "^1.18.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^10.1.0",
+    "react-overlays": "^5.2.1",
     "react-router-dom": "^6.22.3",
     "react-scripts": "5.0.1",
+    "unist-util-visit": "^4.1.2",
     "web-vitals": "^4.2.4"
   },
   "scripts": {

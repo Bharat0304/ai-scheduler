@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "react-overlays": "^5.2.1",
+    "unist-util-visit": "^5.0.0"
+  }
+}

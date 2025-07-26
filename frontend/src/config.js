@@ -7,7 +7,8 @@ export const getApiUrl = (endpoint) => {
 };
 export { FRONTEND_URL };
 
-export default {
+const config = {
     API_URL,
     getApiUrl
-}; 
+};
+export default config; 

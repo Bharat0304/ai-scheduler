@@ -305,4 +305,86 @@ select.glass-box {
     to { opacity: 1; }
   }
 
+/* Modern business hours card styles */
+.business-hours-list {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.business-hours-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 24px;
+  margin-bottom: 24px;
+  transition: box-shadow 0.2s;
+}
+.business-hours-card:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+}
+
+.day-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 16px;
+}
+
+.dayoff-label {
+  font-size: 1rem;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.time-row {
+  display: flex;
+  gap: 24px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+.time-row > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 120px;
+}
+
+.time-row label {
+  font-size: 0.98rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.business-hours-card input[type="time"],
+.business-hours-card input[type="number"] {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  background: #f9f9f9;
+  margin-top: 4px;
+}
+
+.business-hours-card input[type="number"] {
+  width: 70px;
+}
+
+@media (max-width: 700px) {
+  .business-hours-list {
+    max-width: 98vw;
+  }
+  .business-hours-card {
+    padding: 14px;
+  }
+  .time-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+  
   

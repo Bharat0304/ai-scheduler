@@ -3,11 +3,6 @@ import "./CSS/OnboardingPage.css";
 import { getApiUrl } from "../config";
 
 export const OnboardingPage = () => {
-  const [scheduleId, setScheduleId] = useState(null);
-  const [scheduleData, setScheduleData] = useState(null);
-  const [error, setError] = useState(null);
-  const [selectedTimeSlots, setSelectedTimeSlots] = useState([]);
-  const [submitted, setSubmitted] = useState(false);
   const [saving, setSaving] = useState(false);
   const [industry, setIndustry] = useState('');
   const [workerConfig, setWorkerConfig] = useState({
@@ -98,25 +93,27 @@ export const OnboardingPage = () => {
 
       <div className="schedule-section">
         <h2>Set Your Business Hours</h2>
+        <div className="business-hours-list">
         {Object.entries(workerConfig).map(([day, config]) => (
-          <div key={day} className="day-config">
-            <h3>{day.charAt(0).toUpperCase() + day.slice(1)}</h3>
-            <label>
-              <input
-                type="checkbox"
-                checked={config.dayOff}
-                onChange={(e) => setWorkerConfig(prev => ({
-                  ...prev,
-                  [day]: { ...prev[day], dayOff: e.target.checked }
-                }))}
-              />
-              Day Off
-            </label>
+          <div key={day} className="business-hours-card">
+            <div className="day-header">
+              <span>{day.charAt(0).toUpperCase() + day.slice(1)}</span>
+              <label className="dayoff-label">
+                <input
+                  type="checkbox"
+                  checked={config.dayOff}
+                  onChange={(e) => setWorkerConfig(prev => ({
+                    ...prev,
+                    [day]: { ...prev[day], dayOff: e.target.checked }
+                  }))}
+                />
+                Day Off
+              </label>
+            </div>
             {!config.dayOff && (
-              <>
-                <div className="time-inputs">
-                  <label>
-                    Start Time:
+              <div className="time-row">
+                <div>
+                  <label>Start Time
                     <input
                       type="time"
                       value={config.start}
@@ -126,8 +123,9 @@ export const OnboardingPage = () => {
                       }))}
                     />
                   </label>
-                  <label>
-                    End Time:
+                </div>
+                <div>
+                  <label>End Time
                     <input
                       type="time"
                       value={config.end}
@@ -138,22 +136,24 @@ export const OnboardingPage = () => {
                     />
                   </label>
                 </div>
-                <label>
-                  Number of Workers:
-                  <input
-                    type="number"
-                    min="1"
-                    value={config.workers}
-                    onChange={(e) => setWorkerConfig(prev => ({
-                      ...prev,
-                      [day]: { ...prev[day], workers: parseInt(e.target.value) || 1 }
-                    }))}
-                  />
-                </label>
-              </>
+                <div>
+                  <label>Workers
+                    <input
+                      type="number"
+                      min="1"
+                      value={config.workers}
+                      onChange={(e) => setWorkerConfig(prev => ({
+                        ...prev,
+                        [day]: { ...prev[day], workers: parseInt(e.target.value) || 1 }
+                      }))}
+                    />
+                  </label>
+                </div>
+              </div>
             )}
           </div>
         ))}
+        </div>
       </div>
 
       <button 
