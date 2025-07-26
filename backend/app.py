@@ -4,7 +4,6 @@ import json
 import re
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from flask import send_from_directory
 from dotenv import load_dotenv
 from pymongo import MongoClient
 import jwt
@@ -20,12 +19,8 @@ from langchain.tools import tool
 from langchain.agents import Tool
 import os
 
-
-app = Flask(
-    __name__,
-    static_folder=os.path.join('..', 'frontend', 'build', 'static'),
-    template_folder=os.path.join('..', 'frontend', 'build')
-)
+# Only serve API endpoints, do not serve static files or templates
+app = Flask(__name__)
 CORS(app, resources={
     r"/api/*": {
         "origins": [
@@ -52,18 +47,6 @@ users_collection = db['users']
 schedules_collection = db['schedules']
 availabilities_collection = db['availabilities']
 chat_collection = db['chat_histories']
-
-@app.route('/')
-def index():
-    return send_from_directory(app.template_folder, 'index.html')
-
-@app.route('/<path:path>')
-def static_proxy(path):
-    file_path = os.path.join(app.static_folder, path)
-    if os.path.exists(file_path):
-        return send_from_directory(app.static_folder, path)
-    else:
-        return send_from_directory(app.template_folder, 'index.html')
 
 #
 # @app.route('/test')
