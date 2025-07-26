@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
+import { getApiUrl } from "../config";
 import "./CSS/Availability.css";
 import { useSearchParams } from "react-router-dom";
 import Lottie from "lottie-react";
 import checkAnimation from "../Component/Assets/Check.json";
 
 
-function Availability() {
+export const Availability = () => {
   const [searchParams] = useSearchParams();
   const scheduleId = searchParams.get("sid");
   console.log("Schedule ID:", scheduleId);
@@ -49,6 +50,27 @@ function Availability() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
+  useEffect(() => {
+    const fetchScheduleData = async () => {
+      if (!scheduleId) return;
+      try {
+        const response = await fetch(getApiUrl(`api/schedule/${scheduleId}`));
+        if (!response.ok) {
+          throw new Error('Failed to fetch schedule data');
+        }
+        const data = await response.json();
+        setScheduleData(data);
+      } catch (error) {
+        console.error('Error fetching schedule data:', error);
+        setError('Failed to load schedule data');
+      }
+    };
+
+    if (scheduleId) {
+      fetchScheduleData();
+    }
+  }, [scheduleId]);
+
   const handleTimeChange = (dayKey, which, value) => {
     setAvailability((prev) => ({
       ...prev,
@@ -66,44 +88,30 @@ function Availability() {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setSubmitMessage(null);
-
-    const filteredAvailability = Object.fromEntries(
-      Object.entries(availability).filter(([day]) => !unavailableDays[day])
-    );
-
-    const payload = {
-      name,
-      email,
-      availability: filteredAvailability,
-      preference,
-    };
-
-    fetch(`http://localhost:5001/api/availability/${scheduleId}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    })
-      .then(async (res) => {
-        const data = await res.json();
-        if (res.ok) {
-          setSubmitMessage(data.message || "Submitted successfully!");
-          setSubmitted(true);
-        } else {
-          setSubmitMessage(data.error || "Error occurred!");
-        }
-      })
-      .catch(() => {
-        setSubmitMessage("Network error!");
-      })
-      .finally(() => {
-        setLoading(false);
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch(getApiUrl(`api/schedule/${scheduleId}`), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          availability: selectedTimeSlots,
+        }),
       });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit availability');
+      }
+
+      const data = await response.json();
+      if (data.success) {
+        setSubmitted(true);
+      }
+    } catch (error) {
+      console.error('Error submitting availability:', error);
+      setError('Failed to submit availability');
+    }
   };
 
   return (

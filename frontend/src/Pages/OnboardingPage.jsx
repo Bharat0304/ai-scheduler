@@ -8,6 +8,7 @@ import { Copy } from 'lucide-react';
 import onboardingAnimation from '../Component/Assets/onboarding_animation_1.json';
 import onboardingAnimation2 from '../Component/Assets/onboarding_animation_2.json';
 import { Color } from 'antd/es/color-picker';
+import { getApiUrl } from "../config";
 
 const OnboardingPage = () => {
   const [scheduleId, setScheduleId] = useState('');
@@ -59,7 +60,7 @@ const OnboardingPage = () => {
         return;
       }
 
-      const basicRes = await fetch('/api/basic', {
+      const basicRes = await fetch(getApiUrl('api/basic'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -76,7 +77,7 @@ const OnboardingPage = () => {
 
       const userId = basicData._id.$oid;
 
-      const updateRes = await fetch('/api/update_user', {
+      const updateRes = await fetch(getApiUrl('api/update_user'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

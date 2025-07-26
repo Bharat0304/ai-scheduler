@@ -7,11 +7,12 @@ import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
 import { Modal, Form, Input, Spin } from 'antd';
 import { useLocation } from 'react-router-dom';
 import './CSS/Calendar.css';
+import { getApiUrl } from "../config";
 
 const localizer = momentLocalizer(moment);
 const DragAndDropCalendar = withDragAndDrop(BigCalendar);
 
-const EventCalendar = () => {
+export const Calendar = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -20,6 +21,11 @@ const EventCalendar = () => {
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState('');
   const location = useLocation();
+  const [scheduleId, setScheduleId] = useState(null);
+  const [scheduleData, setScheduleData] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
+  const [selectedTimeSlots, setSelectedTimeSlots] = useState([]);
+
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -27,7 +33,45 @@ const EventCalendar = () => {
       new_schedule();
     }
     load_user_information();
+    const scheduleId = localStorage.getItem('schedule-id');
+    if (scheduleId) {
+      setScheduleId(scheduleId);
+    }
   }, [location.search]);
+
+  useEffect(() => {
+    const fetchScheduleData = async () => {
+      if (!scheduleId) return;
+      try {
+        const response = await fetch(getApiUrl(`api/schedule/${scheduleId}`));
+        if (!response.ok) {
+          throw new Error('Failed to fetch schedule data');
+        }
+        const data = await response.json();
+        setScheduleData(data);
+        if (data.events) {
+          setEvents(
+            data.events[scheduleId].map(event => ({
+              id: event.id,
+              start: new Date(event.start),
+              end: new Date(event.end),
+              employee: event.employee,
+              email: event.email,
+            }))
+          );
+        } else {
+          setEvents([]);
+        }
+      } catch (error) {
+        console.error('Error fetching schedule data:', error);
+        setError('Failed to load schedule data');
+      }
+    };
+
+    if (scheduleId) {
+      fetchScheduleData();
+    }
+  }, [scheduleId]);
 
   const load_user_information = async () => {
     const token = localStorage.getItem("auth-token");
@@ -83,23 +127,37 @@ const EventCalendar = () => {
     setVisible(true);
   };
 
-  const handleSubmit = () => {
-    form.validateFields().then(values => {
-      const newEvent = {
-        id: selectedEvent ? selectedEvent.id : Date.now(),
-        start: new Date(values.start),
-        end: new Date(values.end),
-        employee: values.employee,
-        email: values.email,
-      };
-
-      if (selectedEvent) {
-        setEvents(events.map(e => e.id === selectedEvent.id ? newEvent : e));
-      } else {
-        setEvents(prev => [...prev, newEvent]);
+  const handleSubmit = async () => {
+    try {
+      if (!scheduleId) {
+        alert('No schedule-id found. Please generate one.');
+        return;
       }
-      setVisible(false);
-    });
+      const response = await fetch(getApiUrl(`api/schedule/${scheduleId}`), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          availability: selectedTimeSlots,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit availability');
+      }
+
+      const data = await response.json();
+      if (data.success) {
+        setSubmitted(true);
+        alert('Availability submitted successfully!');
+        setVisible(false);
+        setSelectedTimeSlots([]);
+      }
+    } catch (error) {
+      console.error('Error submitting availability:', error);
+      setError('Failed to submit availability');
+    }
   };
 
   const handleEventDrop = ({ event, start, end }) => {

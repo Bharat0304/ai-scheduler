@@ -26,7 +26,7 @@ app = Flask(
     static_folder=os.path.join('..', 'frontend', 'build', 'static'),
     template_folder=os.path.join('..', 'frontend', 'build')
 )
-CORS(app, resources={r"/api/*": {"origins": ["http://localhost:3000"], "methods": ["GET", "POST", "OPTIONS"], "allow_headers": ["Content-Type", "Authorization"]}})
+CORS(app, resources={r"/api/*": {"origins": "*", "methods": ["GET", "POST", "OPTIONS"], "allow_headers": ["Content-Type", "Authorization"]}})
 
 # Set a salt key for JWT encoding/decoding
 app.config['SECRET_KEY'] = 'this_is_my_secret_key'
