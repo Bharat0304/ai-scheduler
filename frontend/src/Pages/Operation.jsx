@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./CSS/Operation.css";
+import { getApiUrl } from "../config";
 
 export const Operation = () => {
   const [error, setError] = useState("");
@@ -16,7 +17,7 @@ export const Operation = () => {
       }
 
       try {
-        const res = await fetch("http://localhost:5001/api/basic", {
+        const res = await fetch(getApiUrl("api/basic"), {
           method: "POST",
           headers: {
             "Authorization": `Bearer ${token}`,
@@ -104,7 +105,7 @@ export const Operation = () => {
 
       const newWorkerConfig = convertRowsToWorkerConfig(rows);
 
-      const response = await fetch("http://localhost:5001/api/update_user", {
+      const response = await fetch(getApiUrl("api/update_user"), {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${token}`,

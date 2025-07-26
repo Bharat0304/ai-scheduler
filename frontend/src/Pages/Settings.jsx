@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Link, NavLink} from "react-router-dom";
 import "./CSS/Settings.css";
+import { getApiUrl } from "../config";
 
 export const Settings = () => {
     const [link, setLink] = useState('');
@@ -17,7 +18,7 @@ export const Settings = () => {
             }
 
             try {
-                const res = await fetch("http://localhost:5001/api/basic", {
+                const res = await fetch(getApiUrl("api/basic"), {
                     method: "POST",
                     headers: {
                         "Authorization": `Bearer ${token}`,
@@ -54,7 +55,7 @@ export const Settings = () => {
                 return;
             }
 
-            const response = await fetch("http://localhost:5001/api/update_user", {
+            const response = await fetch(getApiUrl("api/update_user"), {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${token}`,

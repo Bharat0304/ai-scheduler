@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./CSS/LoginSignup.css";
 import signin1 from "../Component/Assets/signin1.png";
+import { getApiUrl } from "../config";
 // import signin2 from "../Component/Assets/signin2.png";
 
 const LoginSignup = () => {
@@ -15,7 +16,7 @@ const LoginSignup = () => {
 
   const login = async () => {
     try {
-      const response = await fetch('http://localhost:5001/api/login', {
+      const response = await fetch(getApiUrl('api/login'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -39,7 +40,7 @@ const LoginSignup = () => {
 
   const signup = async () => {
     try {
-      const response = await fetch('http://localhost:5001/api/signup', {
+      const response = await fetch(getApiUrl('api/signup'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

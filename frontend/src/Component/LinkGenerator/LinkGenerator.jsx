@@ -1,6 +1,7 @@
 // src/Component/LinkGenerator/LinkGenerator.jsx
 import React, { useState } from 'react';
-import './LinkGenerator.css'; // 记得引入对应样式
+import './LinkGenerator.css';
+import { getApiUrl } from '../../config';
 
 export const LinkGenerator = ({ onScheduleGenerated }) => {
   const [error, setError] = useState('');
@@ -13,7 +14,7 @@ export const LinkGenerator = ({ onScheduleGenerated }) => {
     }
 
     try {
-      const res = await fetch(`http://localhost:5001/api/schedule`, {
+      const res = await fetch(getApiUrl('api/schedule'), {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${token}`,
@@ -27,7 +28,7 @@ export const LinkGenerator = ({ onScheduleGenerated }) => {
       }
 
       const scheduleId = data.schedule_id;
-      localStorage.setItem('schedule-id', scheduleId); // ✅ 保存到 localStorage
+      localStorage.setItem('schedule-id', scheduleId);
       onScheduleGenerated(scheduleId);
       setError('');
     } catch (err) {
