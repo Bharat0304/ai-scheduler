@@ -11,7 +11,7 @@ export const Footer = () => {
                 <div className="footer-section">
                     <div className="footer-logo">
                         <img src={logo} alt="Schedy Logo" />
-                        <h3>Schedy</h3>
+                        <h3>Schedular</h3>
                     </div>
                     <p>Smart AI-powered scheduling solution for modern businesses.</p>
                 </div>

@@ -26,7 +26,16 @@ app = Flask(
     static_folder=os.path.join('..', 'frontend', 'build', 'static'),
     template_folder=os.path.join('..', 'frontend', 'build')
 )
-CORS(app, resources={r"/api/*": {"origins": "*", "methods": ["GET", "POST", "OPTIONS"], "allow_headers": ["Content-Type", "Authorization"]}})
+CORS(app, resources={
+    r"/api/*": {
+        "origins": [
+            "https://ai-scheduler-eta.vercel.app",
+            "http://localhost:3000"
+        ],
+        "methods": ["GET", "POST", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"]
+    }
+})
 
 # Set a salt key for JWT encoding/decoding
 app.config['SECRET_KEY'] = 'this_is_my_secret_key'
@@ -658,6 +667,9 @@ Return only a valid JSON array like:
         # "availabilities_count": len(availability_data)
     })
 
+@app.route('/api/health', methods=['GET'])
+def health():
+    return jsonify({"status": "ok"})
 
 
 if __name__ == '__main__':
